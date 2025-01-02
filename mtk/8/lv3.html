@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Akar Pangkat</title>
+    <style>
+        body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.student-info {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.student-info input {
+    margin: 0 20px 0 5px;
+    padding: 5px;
+}
+
+.question {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+input[type="number"] {
+    width: 100px;
+    padding: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #0d6efd;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0b5ed7;
+}
+
+#result {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.correct { color: #198754; }
+.wrong { color: #dc3545; }
+.next {
+    text-decoration: none;
+    color: black;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ujuan 3</h1>
+       
+        <form id="quizForm">
+            <div class="student-info">
+                <label for="studentName">Nama Siswa:</label>
+                <input type="text" id="studentName" required>
+                <label for="studentClass">Kelas:</label>
+                <input type="text" id="studentClass" required>
+            </div>
+
+            <div class="questions">
+                <div class="question">
+                    <p>1. √64 = ...</p>
+                    <input type="number" id="q1" required>
+                </div>
+
+                <div class="question">
+                    <p>2. √81 = ...</p>
+                    <input type="number" id="q2" required>
+                </div>
+
+                <div class="question">
+                    <p>3. √49 = ...</p>
+                    <input type="number" id="q3" required>
+                </div>
+
+                <div class="question">
+                    <p>4. √100 = ...</p>
+                    <input type="number" id="q4" required>
+                </div>
+
+                <div class="question">
+                    <p>5. √121 = ...</p>
+                    <input type="number" id="q5" required>
+                </div>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+        <div id="result"></div>
+        <a href="final.html" class="next">
+            <button id="nextLevel" style="display:none;" onclick="nextLevel()">Lanjut ke Level Selanjutnya</button>
+        </a>
+    </div>
+    <script>
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const answers = {
+                q1: 8,   // √64
+                q2: 9,   // √81
+                q3: 7,   // √49
+                q4: 10,  // √100
+                q5: 11   // √121
+            };
+            
+            const studentName = document.getElementById('studentName').value;
+            const studentClass = document.getElementById('studentClass').value;
+            let score = 0;
+            let feedback = `<h3>Hasil Quiz</h3>
+                           <p>Nama: ${studentName}</p>
+                           <p>Kelas: ${studentClass}</p>`;
+            
+            for (let i = 1; i <= 5; i++) {
+                const userAnswer = parseInt(document.getElementById('q' + i).value);
+                if (userAnswer === answers['q' + i]) {
+                    score++;
+                    feedback += `<p class="correct">Soal ${i}: Benar ✓</p>`;
+                } else {
+                    feedback += `<p class="wrong">Soal ${i}: Salah × (Jawaban: ${answers['q' + i]})</p>`;
+                }
+            }
+            
+            const finalScore = (score / 5) * 100;
+            feedback += `<h4>Nilai Akhir: ${finalScore}</h4>`;
+            
+            document.getElementById('result').innerHTML = feedback;
+
+            if (finalScore === 100) {
+                document.getElementById('nextLevel').style.display = 'block';
+            }
+        });
+
+        function nextLevel() {
+            window.location.href = 'final.html'; // Adjust the path as necessary
+        }
+    </script>
+</body>
+</html>
